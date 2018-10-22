@@ -737,7 +737,7 @@ static long cedf_activate_plugin(void)
 	} else {
 		//fake by zhe
 		//chk = get_shared_cpu_map(mask, 0, cluster_config);
-		chk = create_shared_cpu_cluster(mask, 0, 1);
+		chk = create_shared_cpu_cluster(mask, 0, 2);
 		//
 		if (chk) {
 			/* if chk != 0 then it is the max allowed index */
@@ -750,6 +750,9 @@ static long cedf_activate_plugin(void)
 		}
 
 		cluster_size = cpumask_weight(mask);
+		printk("cluster size is %d\n", cluster_size);
+
+		//cluster_size = 1;//zhe
 	}
 
 	if ((num_online_cpus() % cluster_size) != 0) {
@@ -802,7 +805,8 @@ static long cedf_activate_plugin(void)
 			} else {
 				//fake by zhe
 				//get_shared_cpu_map(mask, cpu, cluster_config);
-				chk = create_shared_cpu_cluster(mask, cpu, 1);
+				create_shared_cpu_cluster(mask, cpu, 2);
+				printk("for cpu: %d, run create_shared_cpu_cluster", cpu);
 				//
 			}
 

@@ -10,7 +10,15 @@
 //implemented by zhe
 int create_shared_cpu_cluster(cpumask_var_t mask, unsigned int cpu, int clusterSize) 
 {
-	cpumask_set_cpu(cpu, mask);
+	int step;
+	step = num_online_cpus()/clusterSize;
+	cpumask_clear(mask);
+	while (clusterSize>0) {
+		cpumask_set_cpu(cpu, mask);
+		clusterSize = clusterSize - 1;
+		cpu = cpu + step;
+		cpu = cpu%num_online_cpus();
+	}
 	printk("create_shared_cpu_cluster is called");
 	printk("current cpu id is %d", cpu);
 	return 0;
