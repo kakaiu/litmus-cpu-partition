@@ -1,0 +1,46 @@
+Boot:
+[    3.873790] Starting LITMUS^RT kernel
+[    3.873791] Registering LITMUS^RT plugin Linux.
+[    3.892269] Initializing LITMUS^RT control device.
+[    3.892351] Initializing LITMUS^RT uncache device.
+[    3.892540] [zhe]: @litmus-rt/litmus/sched_cedf.c init_cedf
+[    3.892541] Registering LITMUS^RT plugin C-EDF.
+[    3.892544] [zhe]: @litmus-rt/litmus/litmus_proc.c proc_mkdir for C-EDF, \xffffffd2, C-EDF
+[    3.892545] [zhe]: @litmus-rt/litmus/litmus_proc.c proc_create_data for cluster
+[    3.892547] Registering LITMUS^RT plugin PFAIR.
+[    3.892549] [zhe]: @litmus-rt/litmus/litmus_proc.c proc_mkdir for C-EDF, \xffffffd2, PFAIR
+[    3.892553] [zhe]: @litmus-rt/litmus/litmus_proc.c proc_create_data for cluster
+
+echo L3 > /proc/litmus/plugins/C-EDF/cluster
+setsched C-EDF
+[  196.567821] [zhe]: @litmus-rt/litmus/litmus_proc.c litmus_active_proc_write is called
+[  196.567822] [zhe]: @litmus-rt/litmus/sched_plugin.c find_sched_plugin is called
+[  196.567928] [zhe]: @litmus-rt/litmus/litmus.c switch_sched_plugin is called
+[  196.567944] [zhe]: @litmus-rt/litmus/litmus.c do_plugin_switch is called
+[  196.567946] [zhe]: @litmus-rt/litmus/litmus.c do_plugin_switch is called
+[  196.567965] [zhe]: @litmus-rt/litmus/litmus.c do_plugin_switch is called
+[  196.567966] [zhe]: @litmus-rt/litmus/litmus.c do_plugin_switch is called
+[  196.567967] [zhe]: @litmus-rt/litmus/litmus.c do_plugin_switch is called
+[  196.567973] [zhe]: @litmus-rt/litmus/litmus.c do_plugin_switch is called
+[  196.567974] [zhe]: @litmus-rt/litmus/sched_cedf.c cedf_activate_plugin is called
+[  196.567975] C-EDF: Activate Plugin, cluster configuration = 3
+[  196.567977] [zhe]: @litmus-rt/litmus/sched_cedf.c create_shared_cpu_cluster is called
+[  196.567977] cluster size is 2
+[  196.567978] C-EDF: 3 cluster(s) of size = 2
+[  196.567980] [zhe]: @litmus-rt/litmus/sched_cedf.c create_shared_cpu_cluster is called
+[  196.567982] CPU = 0, shared cpu(s) = 0,3
+[  196.567983] [zhe]: @litmus-rt/litmus/sched_cedf.c create_shared_cpu_cluster is called
+[  196.567983] CPU = 1, shared cpu(s) = 1,4
+[  196.567984] [zhe]: @litmus-rt/litmus/sched_cedf.c create_shared_cpu_cluster is called
+[  196.567985] CPU = 2, shared cpu(s) = 2,5
+[  196.567986] [zhe]: @litmus-rt/litmus/sched_cedf.c scedf_setup_domain_proc is called
+[  196.567987] Switching to LITMUS^RT plugin C-EDF.
+[  196.567991] [zhe]: @litmus-rt/litmus/litmus.c get_domain_proc_info will be called
+[  196.567992] [zhe]: @litmus-rt/litmus/sche_cedf.c cedf_get_domain_proc_info is called
+[  196.567992] [zhe]: @litmus-rt/litmus/litmus_proc.c activate_domain_proc is called
+
+./rtspin -p "$cpuClusterID" 10 10 "$length" &
+[  217.409274] [zhe]: @litmus-rt/kernel/sched/core.c sched_setaffinity is called
+[  217.409279] [zhe]: @litmus-rt/kernel/sched/core.c sched_setaffinity is called
+[  217.409311] Setting up rt task parameters for process 2808.
+[  217.409407] Setting up rt task parameters for process 2809.

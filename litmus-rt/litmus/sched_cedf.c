@@ -668,12 +668,16 @@ static void cleanup_cedf(void)
 static struct domain_proc_info cedf_domain_proc_info;
 static long cedf_get_domain_proc_info(struct domain_proc_info **ret)
 {
+	//sed by zhe
+	printk("[zhe]: @litmus-rt/litmus/sche_cedf.c cedf_get_domain_proc_info is called\n");
 	*ret = &cedf_domain_proc_info;
 	return 0;
 }
 
 static void cedf_setup_domain_proc(void)
 {
+	//hacked by zhe
+	printk("[zhe]: @litmus-rt/litmus/sched_cedf.c scedf_setup_domain_proc is called\n");
 	int i, cpu, domain;
 #ifdef CONFIG_RELEASE_MASTER
 	int release_master = atomic_read(&release_master_cpu);
@@ -715,7 +719,8 @@ static void cedf_setup_domain_proc(void)
 }
 
 static long cedf_activate_plugin(void)
-{
+{	//hacked by zhe
+	printk("[zhe]: @litmus-rt/litmus/sched_cedf.c cedf_activate_plugin is called\n");
 	int i, j, cpu, ccpu, cpu_count;
 	cpu_entry_t *entry;
 
@@ -806,7 +811,6 @@ static long cedf_activate_plugin(void)
 				//fake by zhe
 				//get_shared_cpu_map(mask, cpu, cluster_config);
 				create_shared_cpu_cluster(mask, cpu, 2);
-				printk("for cpu: %d, run create_shared_cpu_cluster", cpu);
 				//
 			}
 
@@ -877,6 +881,8 @@ static int __init init_cedf(void)
 {
 	int err, fs;
 
+	//hacked by zhe
+	printk("[zhe]: @litmus-rt/litmus/sched_cedf.c init_cedf\n");
 	err = register_sched_plugin(&cedf_plugin);
 	if (!err) {
 		fs = make_plugin_proc_dir(&cedf_plugin, &cedf_dir);

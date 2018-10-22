@@ -19,8 +19,8 @@ int create_shared_cpu_cluster(cpumask_var_t mask, unsigned int cpu, int clusterS
 		cpu = cpu + step;
 		cpu = cpu%num_online_cpus();
 	}
-	printk("create_shared_cpu_cluster is called");
-	printk("current cpu id is %d", cpu);
+	//hacked by zhe
+	printk("[zhe]: @litmus-rt/litmus/sched_cedf.c create_shared_cpu_cluster is called\n");
 	return 0;
 }
 
