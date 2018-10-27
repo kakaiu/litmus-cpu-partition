@@ -1,1 +1,1 @@
-/home/kakaiu/litmus/litmus-rt/scripts/gdb/vmlinux-gdb.py
+/home/kakaiu/litmus-cpu-partition/litmus-rt/scripts/gdb/vmlinux-gdb.py

@@ -31,10 +31,15 @@ avoid code duplication.
 		for_each_cpu(__cpu, cpus_to_test) { \
 			if (likely(__cpu != release_master)) { \
 				cpu_entry_t *__entry = &per_cpu((entries), __cpu); \
-				if (cpus_share_cache((start)->cpu, __entry->cpu) \
-				    && !__entry->linked) { \
-					(nearest) = __entry; \
-					break; \
+				/*if (cpus_share_cache((start)->cpu, __entry->cpu) \
+				//    && !__entry->linked) { \
+				//	(nearest) = __entry; \
+				//	break; \
+				} */\
+				/*hacked by zhe*/\
+				if (!__entry->linked) { \
+					(nearest) = __entry;\
+					break;\
 				} \
 			} \
 		} \
