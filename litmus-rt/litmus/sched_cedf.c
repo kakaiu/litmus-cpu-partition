@@ -406,6 +406,9 @@ static struct task_struct* cedf_schedule(struct task_struct * prev)
 	int out_of_time, sleep, preempt, np, exists, blocks;
 	struct task_struct* next = NULL;
 
+	//hacked by zhe
+	printk("[zhe][guide] 5. cedf_schedule\n");
+
 #ifdef CONFIG_RELEASE_MASTER
 	/* Bail out early if we are the release master.
 	 * The release master never schedules any real-time tasks.
@@ -519,6 +522,8 @@ static struct task_struct* cedf_schedule(struct task_struct * prev)
 static void cedf_finish_switch(struct task_struct *prev)
 {
 	cpu_entry_t* 	entry = this_cpu_ptr(&cedf_cpu_entries);
+	//hacked by zhe
+	printk("[zhe][guide] 1. cedf_finish_switch\n");
 
 	entry->scheduled = is_realtime(current) ? current : NULL;
 #ifdef WANT_ALL_SCHED_EVENTS
@@ -536,6 +541,9 @@ static void cedf_task_new(struct task_struct * t, int on_rq, int is_scheduled)
 	cedf_domain_t*		cluster;
 
 	TRACE("gsn edf: task new %d\n", t->pid);
+	
+	//hacked by zhe
+	printk("[zhe][guide] 2. cedf_task_new\n");
 
 	/* the cluster doesn't change even if t is scheduled */
 	cluster = task_cpu_cluster(t);
@@ -577,6 +585,9 @@ static void cedf_task_wake_up(struct task_struct *task)
 	lt_t now;
 	cedf_domain_t *cluster;
 
+	//hacked by zhe
+	printk("[zhe][guide] 6. cedf_task_wake_up\n");
+
 	TRACE_TASK(task, "wake_up at %llu\n", litmus_clock());
 
 	cluster = task_cpu_cluster(task);
@@ -595,6 +606,9 @@ static void cedf_task_block(struct task_struct *t)
 	unsigned long flags;
 	cedf_domain_t *cluster;
 
+	//hacked by zhe
+	printk("[zhe][guide] 7. cedf_task_block\n");
+
 	TRACE_TASK(t, "block at %llu\n", litmus_clock());
 
 	cluster = task_cpu_cluster(t);
@@ -611,6 +625,10 @@ static void cedf_task_block(struct task_struct *t)
 static void cedf_task_exit(struct task_struct * t)
 {
 	unsigned long flags;
+
+	//hacked by zhe
+	printk("[zhe][guide] 4. cedf_task_exit\n");
+
 	cedf_domain_t *cluster = task_cpu_cluster(t);
 
 	/* unlink if necessary */
@@ -630,6 +648,9 @@ static void cedf_task_exit(struct task_struct * t)
 
 static long cedf_admit_task(struct task_struct* tsk)
 {
+	//hacked by zhe
+	printk("[zhe][guide] 8. cedf_admit_task\n");
+
 	return (remote_cluster(task_cpu(tsk)) == task_cpu_cluster(tsk)) ?
 			0 : -EINVAL;
 }
@@ -668,8 +689,11 @@ static void cleanup_cedf(void)
 static struct domain_proc_info cedf_domain_proc_info;
 static long cedf_get_domain_proc_info(struct domain_proc_info **ret)
 {
-	//sed by zhe
+	//hacked by zhe
 	printk("[zhe]: @litmus-rt/litmus/sche_cedf.c cedf_get_domain_proc_info is called\n");
+	//hacked by zhe
+	printk("[zhe][guide] 11. cedf_get_domain_proc_info\n");
+
 	*ret = &cedf_domain_proc_info;
 	return 0;
 }
@@ -719,13 +743,17 @@ static void cedf_setup_domain_proc(void)
 }
 
 static long cedf_activate_plugin(void)
-{	//hacked by zhe
-	printk("[zhe]: @litmus-rt/litmus/sched_cedf.c cedf_activate_plugin is called\n");
+{	
 	int i, j, cpu, ccpu, cpu_count;
 	cpu_entry_t *entry;
 
 	cpumask_var_t mask;
 	int chk = 0;
+
+	//hacked by zhe
+	printk("[zhe]: @litmus-rt/litmus/sched_cedf.c cedf_activate_plugin is called\n");
+	//hacked by zhe
+	printk("[zhe][guide] 9. cedf_activate_plugin\n");
 
 	/* de-allocate old clusters, if any */
 	cleanup_cedf();
@@ -855,6 +883,9 @@ static long cedf_activate_plugin(void)
 
 static long cedf_deactivate_plugin(void)
 {
+	//hacked by zhe
+	printk("[zhe][guide] 10. cedf_deactivate_plugin\n");
+
 	destroy_domain_proc_info(&cedf_domain_proc_info);
 	return 0;
 }

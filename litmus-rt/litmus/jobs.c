@@ -101,6 +101,10 @@ long default_wait_for_release_at(lt_t release_time)
 long complete_job(void)
 {
 	preempt_disable();
+	
+	//hacked by zhe
+	printk("[zhe][guide] 3. complete_job\n");
+
 	TRACE_CUR("job completion indicated at %llu\n", litmus_clock());
 	/* Mark that we do not excute anymore */
 	tsk_rt(current)->completed = 1;
